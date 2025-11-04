@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAP.UserService.Api", "SAP.UserService\SAP.UserService.Api.csproj", "{E997B81E-900A-446E-BA79-523A269CE46B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAP.UserService.Infrastructure", "SAP.UserService.Infrastructure\SAP.UserService.Infrastructure.csproj", "{A0180448-3782-4F65-AED1-FADCFB3FBD9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAP.UserService.Application", "SAP.UserService.Application\SAP.UserService.Application.csproj", "{2BE4A15A-D724-4BFE-A308-171C6F970159}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAP.UserService.Domain", "SAP.UserService.Domain\SAP.UserService.Domain.csproj", "{AEFB69DB-6883-4E45-BDC4-F41518068E25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAP.UserService.Tests", "SAP.UserService.Tests\SAP.UserService.Tests.csproj", "{405004EF-FD37-42DB-A10C-F84B4FFEB59B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E997B81E-900A-446E-BA79-523A269CE46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E997B81E-900A-446E-BA79-523A269CE46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E997B81E-900A-446E-BA79-523A269CE46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E997B81E-900A-446E-BA79-523A269CE46B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0180448-3782-4F65-AED1-FADCFB3FBD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0180448-3782-4F65-AED1-FADCFB3FBD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0180448-3782-4F65-AED1-FADCFB3FBD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0180448-3782-4F65-AED1-FADCFB3FBD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BE4A15A-D724-4BFE-A308-171C6F970159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BE4A15A-D724-4BFE-A308-171C6F970159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BE4A15A-D724-4BFE-A308-171C6F970159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BE4A15A-D724-4BFE-A308-171C6F970159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFB69DB-6883-4E45-BDC4-F41518068E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFB69DB-6883-4E45-BDC4-F41518068E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFB69DB-6883-4E45-BDC4-F41518068E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFB69DB-6883-4E45-BDC4-F41518068E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405004EF-FD37-42DB-A10C-F84B4FFEB59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405004EF-FD37-42DB-A10C-F84B4FFEB59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405004EF-FD37-42DB-A10C-F84B4FFEB59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405004EF-FD37-42DB-A10C-F84B4FFEB59B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FCFFE00-4B09-4A6C-812E-552721849574}
+	EndGlobalSection
+EndGlobal

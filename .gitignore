@@ -7,6 +7,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/Dotnet.gitignore
 
+
+# AppSettings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+appsettings.Staging.json
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -40,6 +46,7 @@ ScaffoldingReadMe.txt
 ~$*
 *~
 CodeCoverage/
+*.vs
 
 # MSBuild Binary and Structured Log
 *.binlog
