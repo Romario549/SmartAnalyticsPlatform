@@ -14,7 +14,6 @@ public class JwtTokenGenerator : IJWTTokenGenerator
 	private readonly JwtSettings _jwtSettings;
 	private readonly SigningCredentials _signingCredentials;
 
-
 	public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings)
 	{
 		_jwtSettings = jwtSettings.Value;

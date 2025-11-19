@@ -19,8 +19,7 @@ public static class DependencyInjection
 		{
 			c.SwaggerDoc("v1", new() { Title = "User Service API", Version = "v1" });
 
-			// Добавляем описание OAuth endpoints
-			c.TagActionsBy(api => new[] { api.GroupName ?? "Default" });
+			c.TagActionsBy(api => [api.GroupName ?? "Default"]);
 		});
 
 		return services;

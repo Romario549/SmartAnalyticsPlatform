@@ -10,8 +10,10 @@ public class OAuthService : IOAuthService
 	private readonly IUserRepository _userRepository;
 	private readonly IPasswordHasher _passwordHasher;
 
-	public OAuthService(IGitHubOAuthProvider gitHubOAuthProvider, IUserRepository userRepository
-, IPasswordHasher passwordHasher)
+	public OAuthService(
+		IGitHubOAuthProvider gitHubOAuthProvider, 
+		IUserRepository userRepository, 
+		IPasswordHasher passwordHasher)
 	{
 		_gitHubOAuthProvider = gitHubOAuthProvider;
 		_userRepository = userRepository;
@@ -34,24 +36,17 @@ public class OAuthService : IOAuthService
 		var userInfo = await _gitHubOAuthProvider.ExchangeCodeForUserInfoAsync(code);
 
 		// 2. Ищем пользователя по email (GitHub дает email)
-		var user = await FindOrCreateUserAsync(userInfo, _passwordHasher);
+		var user = await FindOrCreateUserAsync(userInfo);
 
 		return user;
 	}
-
-
-	private async Task<User> FindOrCreateUserAsync(GitHubUserInfo userInfo, IPasswordHasher hasher)
+	private async Task<User> FindOrCreateUserAsync(GitHubUserInfo userInfo)
 	{
-		var existingUser = await _userRepository.GetByEmailAsync(userInfo.Email);
-		if (existingUser != null) return existingUser;
-
-		var email = new Email(userInfo.Email);
-		var password = new Password(Guid.NewGuid().ToString(), hasher);
-		var name = new PersonName(userInfo.FirstName, userInfo.LastName);
-
-		var newUser = new User(email, password, name);
-		await _userRepository.AddAsync(newUser);
-		return newUser;
+		var existingUser = await _userRepository.GetByEmailAsync(userInfo.Email) ?? throw new ApplicationException(
+			"User not found. Please register first with email and password, then link GitHub account.");
+		var oauthAdd = OAuthProvider.Create(userInfo.Login, userInfo.ProviderUserId, existingUser);
+		await _userRepository.AddOauthAsync(oauthAdd);
+		return existingUser;
 	}
 
 }

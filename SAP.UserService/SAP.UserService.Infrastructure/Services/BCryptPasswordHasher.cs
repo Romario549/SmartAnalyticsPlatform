@@ -1,5 +1,4 @@
 ﻿using SAP.UserService.Domain.Interfaces.Services;
-
 namespace SAP.UserService.Infrastructure.Services;
 
 public class BCryptPasswordHasher : IPasswordHasher

@@ -2,7 +2,6 @@
 
 public record GitHubUserInfo(
 	string Email,
-	string FirstName,
-	string LastName,
+	string Login,
 	string ProviderUserId
 );
