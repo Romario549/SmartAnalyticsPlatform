@@ -21,7 +21,6 @@ public class GitHubOAuthProvider : IGitHubOAuthProvider
 		_httpClient.DefaultRequestHeaders.Add("User-Agent", "SAP.UserService");
 
 	}
-
 	public async Task<GitHubUserInfo> ExchangeCodeForUserInfoAsync(string code)
 	{
 		var accessToken = await ExchangeCodeForTokenAsync(code);
@@ -41,9 +40,6 @@ public class GitHubOAuthProvider : IGitHubOAuthProvider
 		string.Join("&", parameters.Select(p => $"{p.Key}={HttpUtility.UrlEncode(p.Value)}"));
 		return Task.FromResult(url);
 	}
-
-
-
 	private async Task<string> ExchangeCodeForTokenAsync(string code)
 	{
 		var request = new
@@ -72,7 +68,6 @@ public class GitHubOAuthProvider : IGitHubOAuthProvider
 		_httpClient.DefaultRequestHeaders.Authorization =
 			new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-		// Get user profile
 		var userResponse = await _httpClient.GetAsync("https://api.github.com/user");
 		userResponse.EnsureSuccessStatusCode();
 
@@ -82,9 +77,7 @@ public class GitHubOAuthProvider : IGitHubOAuthProvider
 
 		var userId = userRoot.GetProperty("id").GetInt64().ToString();
 		var login = userRoot.GetProperty("login").GetString() ?? "";
-		var name = userRoot.GetProperty("name").GetString() ?? login;
 
-		// Get email
 		var emailResponse = await _httpClient.GetAsync("https://api.github.com/user/emails");
 		emailResponse.EnsureSuccessStatusCode();
 
@@ -96,12 +89,7 @@ public class GitHubOAuthProvider : IGitHubOAuthProvider
 						?? emails.FirstOrDefault(e => e.verified)?.email
 						?? $"{login}@users.noreply.github.com";
 
-		// Parse name
-		var nameParts = name.Split(' ');
-		var firstName = nameParts.Length > 0 ? nameParts[0] : login;
-		var lastName = nameParts.Length > 1 ? nameParts[^1] : "";
-
-		return new GitHubUserInfo(primaryEmail, firstName, lastName, userId);
+		return new GitHubUserInfo(primaryEmail, login, userId);
 	}
 }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SAP.UserService.Application.Services;
 using SAP.UserService.Domain.Interfaces.Services;
 
 namespace SAP.UserService.Api.Controllers;
@@ -9,11 +10,13 @@ public class OAuthController:ControllerBase
 {
 	private readonly IOAuthService _oauthService;
 	private readonly ILogger<OAuthController> _logger;
+	private readonly IJWTTokenGenerator _jWTTokenGenerator;
 
-	public OAuthController(IOAuthService oauthService, ILogger<OAuthController> logger)
+	public OAuthController(IOAuthService oauthService, ILogger<OAuthController> logger, IJWTTokenGenerator jWTTokenGenerator)
 	{
 		_oauthService = oauthService;
 		_logger = logger;
+		_jWTTokenGenerator = jWTTokenGenerator;
 	}
 
 	[HttpGet("github")]
@@ -38,22 +41,29 @@ public class OAuthController:ControllerBase
 	}
 
 	[HttpGet("github/callback")]
-	public async Task<IActionResult> GitHubCallback([FromQuery] string code, [FromQuery] string state)
+	public async Task<IActionResult> GitHubCallback()
 	{
 		try
 		{
+			var code = Request.Query["code"].ToString();
+			var state = Request.Query["state"].ToString();
+
 			if (string.IsNullOrEmpty(code))
 				return BadRequest(new { error = "Code parameter is required" });
 
 			var user = await _oauthService.HandleOAuthCallbackAsync("GitHub", code);
 
-			// Здесь можно сгенерировать JWT токен и вернуть его
+			var token = _jWTTokenGenerator.GenerateToken(user);
+			var refreshToken = _jWTTokenGenerator.GenerateRefreshToken();
+
 			return Ok(new
 			{
 				user_id = user.Id,
 				email = user.Email.Value,
 				first_name = user.FullName.FirstName,
 				last_name = user.FullName.LastName,
+				access_token = token,
+				refresh_token = refreshToken,
 				message = "GitHub OAuth successful"
 			});
 		}
